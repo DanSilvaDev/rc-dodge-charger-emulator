@@ -1,9 +1,16 @@
 #include <Arduino.h>
-#include <Lights/Handlers/SimpleLedLightHandler.h>
-#include "lights_handlers"
+#include <Lights.h>
+
+// Pin Consts
+#define LEFT_HEAD_LIGHT 1
+#define RIGHT_HEAD_LIGHT 2
+#define LEFT_TAIL_LIGHT 3
+#define RIGHT_TAIL_LIGHT 4
+#define RIGHT_TURN_SIGNAL 5
+#define LEFT_TURN_SIGNAL 6
 
 unsigned long currentMillis;
-CarLightsHandlers::SimpleLedLightHandler* handler;
+Lights * pLightsHandler;
 short blinkFrequency = 500;
 
 // put function declarations here:
@@ -12,18 +19,18 @@ short blinkFrequency = 500;
 void setup()
 {
     currentMillis = millis();
-    handler =
-            new CarLightsHandlers::SimpleLedLightHandler(1, 2, 3,
-                                                         4, 5, 6,
-                                                         -1, -1, blinkFrequency);
-    handler->setHeadlightHighBeam();
+    pLightsHandler = new Lights(LEFT_HEAD_LIGHT, RIGHT_HEAD_LIGHT, RIGHT_TAIL_LIGHT,
+            LEFT_TAIL_LIGHT, RIGHT_TURN_SIGNAL, LEFT_TURN_SIGNAL,
+            -1, -1, blinkFrequency);
+
+    pLightsHandler->setHeadlightHighBeam();
 }
 
 void loop()
 {
     // put your main code here, to run repeatedly:
     currentMillis = millis();
-    handler->setBlinkRightTurnIndicator(currentMillis);
+    pLightsHandler->setBlinkRightTurnIndicator(currentMillis);
 }
 
 // put function definitions here:

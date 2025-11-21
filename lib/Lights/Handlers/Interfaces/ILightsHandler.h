@@ -1,9 +1,7 @@
-﻿#ifndef RCDODGECHARGEREMULATION_ILIGHTSHANDLER_H
-#define RCDODGECHARGEREMULATION_ILIGHTSHANDLER_H
+﻿#ifndef ILIGHTSHANDLER_H
+#define ILIGHTSHANDLER_H
 
-namespace CarLightsHandlersInterfaces
-{
-    class ILightsHandler
+   class ILightsHandler
     {
         public:
             virtual ~ILightsHandler() = default;
@@ -24,5 +22,5 @@ namespace CarLightsHandlersInterfaces
             virtual void setFogLightsOn() = 0;
             virtual void setFogLightsOff() = 0;
     };
-}
-#endif //RCDODGECHARGEREMULATION_ILIGHTSHANDLER_H
+
+#endif
