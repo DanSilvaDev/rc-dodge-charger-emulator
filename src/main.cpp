@@ -24,7 +24,6 @@ CarLightModel carLightModel = {
     .leftTurnLightPin = LEFT_TURN_SIGNAL
 };
 Lights lightsHandler = Lights(&carLightModel, TURN_SIGNAL_FREQ_MS);
-// Lights lightsHandler;
 
 // put function declarations here:
 //int myFunction(int, int);
@@ -32,31 +31,10 @@ Lights lightsHandler = Lights(&carLightModel, TURN_SIGNAL_FREQ_MS);
 void setup()
 {
     Serial.begin(9600);
-    // while (!Serial);
-    // Serial.print("Connected to Serial");
     lastMillis = currentMillis = millis();
     testCommand = 0;
-    Serial.println("Test Access to Lights:");
-    Serial.println(carLightModel.rightTurnLightPin, DEC);
-    Serial.println(carLightModel.leftTurnLightPin, DEC);
-    // currentMillis = millis();
-    //
-    // carLightModel = {
-    //     .leftHeadLightPin = LEFT_HEAD_LIGHT,
-    //     .rightHeadLightPin = RIGHT_HEAD_LIGHT,
-    //     .leftRearBreakLightPin = LEFT_TAIL_LIGHT,
-    //     .rightRearBreakLightPin = RIGHT_TAIL_LIGHT,
-    //     .reverseLightPin = 0,
-    //     .fogLightPin = 0,
-    //     .rightTurnLightPin = RIGHT_TURN_SIGNAL,
-    //     .leftTurnLightPin = LEFT_TURN_SIGNAL
-    // };
-    //
-    // pLightsHandler = new Lights(&carLightModel, TURN_SIGNAL_FREQ_MS);
     lightsHandler.configurePins();
     Serial.println("Lights handler initialized");
-    
-    // pLightsHandler->setHeadlightHighBeam();
 }
 
 void loop()
