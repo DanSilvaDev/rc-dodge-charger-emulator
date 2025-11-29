@@ -8,10 +8,12 @@
 #define RIGHT_TAIL_LIGHT 4
 #define RIGHT_TURN_SIGNAL 5
 #define LEFT_TURN_SIGNAL 6
+#define TURN_SIGNAL_FREQ_MS 500
 
 unsigned long currentMillis;
-Lights * pLightsHandler;
-short blinkFrequency = 500;
+Lights* pLightsHandler;
+CarLightModel carLightModel;
+// Lights lightsHandler;
 
 // put function declarations here:
 //int myFunction(int, int);
@@ -19,9 +21,20 @@ short blinkFrequency = 500;
 void setup()
 {
     currentMillis = millis();
-    pLightsHandler = new Lights(LEFT_HEAD_LIGHT, RIGHT_HEAD_LIGHT, RIGHT_TAIL_LIGHT,
-            LEFT_TAIL_LIGHT, RIGHT_TURN_SIGNAL, LEFT_TURN_SIGNAL,
-            -1, -1, blinkFrequency);
+
+
+    carLightModel = {
+        .leftHeadLightPin = LEFT_HEAD_LIGHT,
+        .rightHeadLightPin = RIGHT_HEAD_LIGHT,
+        .leftRearBreakLightPin = LEFT_TAIL_LIGHT,
+        .rightRearBreakLightPin = RIGHT_TAIL_LIGHT,
+        .reverseLightPin = 0,
+        .fogLightPin = 0,
+        .rightTurnLightPin = RIGHT_TURN_SIGNAL,
+        .leftTurnLightPin = LEFT_TURN_SIGNAL
+    };
+
+    pLightsHandler = new Lights(carLightModel, TURN_SIGNAL_FREQ_MS);
 
     pLightsHandler->setHeadlightHighBeam();
 }
