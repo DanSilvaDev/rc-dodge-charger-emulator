@@ -2,13 +2,12 @@
 #include "Arduino.h"
 
 
-Lights::Lights(CarLightModel& lightModel, short blinkFrequencyMillis)
+Lights::Lights(CarLightModel* lightModel, short blinkFrequencyMillis)
 {
-    _pCarLightModel = &lightModel;
+    _pCarLightModel = lightModel;
     _blinkFrequencyMillis = blinkFrequencyMillis;
-    _lastMillis = millis();
+    _lastMillis = 0;
     _blinkLastState = LOW;
-    configurePins();
 }
 
 // Todo: Pending to implement proper the intermediary stages. I don`t want to occupy all PWM ports for lights
@@ -67,16 +66,14 @@ void Lights::setBreakLightsOff()
 
 void Lights::setBlinkRightTurnIndicator(unsigned long currentMillis)
 {
-    _blinkLastState = blinkOnFrequency(_pCarLightModel->rightTurnLightPin, _blinkLastState, _lastMillis,
+    blinkOnFrequency(_pCarLightModel->rightTurnLightPin, _blinkLastState, _lastMillis,
                                                   currentMillis, _blinkFrequencyMillis);
-    _lastMillis = currentMillis;
 }
 
 void Lights::setBlinkLeftTurnIndicator(unsigned long currentMillis)
 {
-    _blinkLastState = blinkOnFrequency(_pCarLightModel->leftTurnLightPin, _blinkLastState, _lastMillis,
+    blinkOnFrequency(_pCarLightModel->leftTurnLightPin, _blinkLastState, _lastMillis,
                                                   currentMillis, _blinkFrequencyMillis);
-    _lastMillis = currentMillis;
 }
 
 void Lights::setBlinkTurnIndicatorOff()
@@ -118,12 +115,11 @@ void Lights::configurePins()
     setPinAsOutputIfValid(_pCarLightModel->leftHeadLightPin);
     setPinAsOutputIfValid(_pCarLightModel->rightRearBreakLightPin);
     setPinAsOutputIfValid(_pCarLightModel->leftRearBreakLightPin);
-    setPinAsOutputIfValid(_pCarLightModel->leftTurnLightPin);
     setPinAsOutputIfValid(_pCarLightModel->rightTurnLightPin);
+    setPinAsOutputIfValid(_pCarLightModel->leftTurnLightPin);
     setPinAsOutputIfValid(_pCarLightModel->fogLightPin);
     setPinAsOutputIfValid(_pCarLightModel->reverseLightPin);
     _lastMillis = millis();
-    _blinkLastState = LOW;
 }
 
 void Lights::setPinAsOutputIfValid(char pinNumber)
@@ -134,18 +130,16 @@ void Lights::setPinAsOutputIfValid(char pinNumber)
     pinMode(pinNumber, OUTPUT);
 }
 
-char Lights::blinkOnFrequency(char pinNumber, char lastState, unsigned long lastMilles, unsigned long currentMillis,
+void Lights::blinkOnFrequency(char pinNumber, char & pinState, unsigned long & lastMillis, unsigned long currentMillis,
                               short frequencyDesired)
 {
-    unsigned long diffTime = currentMillis - lastMilles;
-    char finalState = lastState;
-
+    unsigned long diffTime = currentMillis - lastMillis;
     // it could be zero when the overflow has already happened
     // to see: https://docs.arduino.cc/language-reference/en/functions/time/millis/
-    if (diffTime >= frequencyDesired || diffTime == 0)
+    if (diffTime >= frequencyDesired) // || diffTime == 1)
     {
-        finalState = !lastState;
-        digitalWrite(pinNumber, finalState);
+        pinState = !pinState;
+        digitalWrite(pinNumber, pinState);
+        lastMillis = millis();
     }
-    return finalState;
 }
