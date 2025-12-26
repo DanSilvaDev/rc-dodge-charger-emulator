@@ -2,19 +2,19 @@
 #define SOUNDS_H
 #include <string>
 
-class EngineSounds {
+class sounds {
 public:
-    EngineSounds();
+    sounds();
 
-    std::string getIdle();
-    std::string getFuelPumpStart();
-    std::string getEngineStartSuccess();
-    std::string getEngineStartFailure();
-    std::string getEngineStop();
-    std::string getRevEngAtAccelerating(int rpm);
-    std::string getRevEngAtDecelerating(int rpm);
-    std::string getNeutralRevUp(int rpm);
-    std::string getNeutralRevDown(int rpm);
+    std::string playIdle();
+    std::string playFuelPumpStart();
+    std::string playEngineStartSuccess();
+    std::string playEngineStartFailure();
+    std::string playEngineStop();
+    std::string playRevEngAtAccelerating(unsigned short rpm);
+    std::string playRevEngAtDecelerating(unsigned short rpm);
+    std::string playNeutralRevUp(int rpm);
+    std::string playNeutralRevDown(int rpm);
 
 };
 

@@ -1,41 +1,35 @@
 ﻿#ifndef ENGINE_H
 #define ENGINE_H
-
-
-enum IgnitionStartBehavior : unsigned short {
-    Randomly = 0,
-    Successfully = 1,
-    Failing = 2
-};
-
-enum GearPosition : unsigned short {
-    Reverse = 0,
-    G1 = 1,
-    G2 = 2,
-    G3 = 3,
-    G4 = 4,
-    G5 = 5,
-    Drive = 6,
-    Neutral = 7,
-    Parking = 8,
-};
+#include "models/gearSelection.h"
+#include "models/ignitionStartBehavior.h"
+#include "../controls/models/hBridgePins.h"
+#include "../controls/dcMotorControl.h"
+#include "../sounds/sounds.h"
+#include "models/torqueMotorTable.h"
 
 class engine
 {
     private:
         bool _isRunning;
         unsigned int _rpm;
+        gearSelection _gearSelection;
+        dcMotorControl* _motorControl;
+        sounds* _engineSounds;
+        unsigned short _rpmLimit;
+        torqueMotorTable* _torqueMotorTable;
+        
+        void calculateEngineLoad();
     public:
-        engine();
+        engine(hBridgePins* dcPins);
         bool isRunning();
-        unsigned int getRpm();
-        GearPosition getGearPosition();
-        unsigned short getFuelLevelPercent();
-        void startEngine(IgnitionStartBehavior ignitionStartBehavior);
+        unsigned short getRpm();
+        gearSelection getGearSelection();
+        unsigned char getFuelLevelPercent();
+        void startEngine(ignitionStartBehavior ignitionStartBehavior);
         void shutOffEngine();
-        void acceleratorPedal(unsigned short throttlePercent);
-        void breakPedal(unsigned short brakePercent);
-        void setGearPosition(GearPosition gearPosition);
+        void acceleratorPedal(unsigned char throttlePercent);
+        void breakPedal(unsigned char brakePercent);
+        void setGearSelection(gearSelection gearSelection);
 };
 
 
