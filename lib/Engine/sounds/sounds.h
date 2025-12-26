@@ -1,9 +1,5 @@
-﻿//
-// Created by rvezy on 11/7/2025.
-//
-
-#ifndef RCDODGECHARGEREMULATION_SOUNDS_H
-#define RCDODGECHARGEREMULATION_SOUNDS_H
+﻿#ifndef SOUNDS_H
+#define SOUNDS_H
 #include <string>
 
 class EngineSounds {
@@ -23,4 +19,4 @@ public:
 };
 
 
-#endif //RCDODGECHARGEREMULATION_SOUNDS_H
+#endif //SOUNDS_H

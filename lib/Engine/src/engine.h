@@ -20,13 +20,13 @@ enum GearPosition : unsigned short {
     Parking = 8,
 };
 
-class Engine
+class engine
 {
     private:
         bool _isRunning;
         unsigned int _rpm;
     public:
-        Engine();
+        engine();
         bool isRunning();
         unsigned int getRpm();
         GearPosition getGearPosition();
