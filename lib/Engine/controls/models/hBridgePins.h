@@ -4,12 +4,18 @@
 /// Pins to match L298 H bridge 
 struct hBridgePins
 {
-  unsigned short enableA;
-  unsigned short enableB;
-  unsigned short in1;
-  unsigned short in2;
-  unsigned short in3;
-  unsigned short in4;
+  unsigned char enableA;
+  unsigned char enableB;
+  unsigned char in1;
+  unsigned char in2;
+  unsigned char in3;
+  unsigned char in4;
+  
+  // PWM Properties
+  unsigned int pwmFrequency;
+  unsigned short resolution;
+  unsigned char pwmChannel;
+  unsigned short dutyCycle;
 };
 
 #endif //HBRIDGEPINS_H

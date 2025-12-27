@@ -6,6 +6,9 @@
 
 class dcMotorControl
 {
+    private:
+        hBridgePins* _pins;
+        void configOutputPin(int pinNumber);
     public:
         dcMotorControl(hBridgePins* dcPins);
         void setSpeed(unsigned short speed);
