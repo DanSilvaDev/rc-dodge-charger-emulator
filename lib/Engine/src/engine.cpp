@@ -104,6 +104,9 @@ void engine::acceleratorPedal(unsigned char throttlePercent)
 
 double engine::calculateTorquePercent(unsigned short rpm)
 {
+    if (_gearSelection == gearSelection::Neutral || rpm == _idleRpm)
+        return 0;
+
     // formula to emulate the Hemi engine torque curve in percentage
     double torquePerc = (((rpm * rpm) - 0.0000087832168) + (0.0659552447552 * rpm) - 23.2000000000051);
     if (torquePerc < 0)
@@ -176,5 +179,5 @@ void engine::calculateEngineLoad(unsigned char throttlePercent)
         _engineSounds->playRevEngAtAccelerating();
     }
     
-    _rpm = finalRpm;
+    _rpm = static_cast<int>(round(finalRpm));
 }

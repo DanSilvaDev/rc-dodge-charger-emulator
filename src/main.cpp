@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Lights.h>
+#include <Engine.h>
 
 // Pin Consts
 #define LEFT_HEAD_LIGHT 1
@@ -24,6 +25,16 @@ CarLightModel carLightModel = {
     .leftTurnLightPin = LEFT_TURN_SIGNAL
 };
 Lights lightsHandler = Lights(&carLightModel, TURN_SIGNAL_FREQ_MS);
+hBridgePins hBridgePins = {
+    .enableA = 9,
+    .enableB = 12,
+    .in1 = 5,
+    .in2 = 6,
+    .in3 = 10,
+    .in4 = 11,
+};
+
+engine engineHandler = engine(&hBridgePins);
 
 // put function declarations here:
 //int myFunction(int, int);
