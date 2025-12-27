@@ -16,9 +16,13 @@ class engine
         dcMotorControl* _motorControl;
         sounds* _engineSounds;
         unsigned short _rpmLimit;
-        torqueMotorTable* _torqueMotorTable;
+        long _lastUpdateTime;
+        long _updateIntervalMillis;
+        unsigned int _idleRpm;
+        // torqueMotorTable* _torqueMotorTable;
         
-        void calculateEngineLoad();
+        void calculateEngineLoad(unsigned char throttlePercent);
+        double calculateTorquePercent(unsigned short rpm);
     public:
         engine(hBridgePins* dcPins);
         bool isRunning();

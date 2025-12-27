@@ -11,8 +11,8 @@ public:
     std::string playEngineStartSuccess();
     std::string playEngineStartFailure();
     std::string playEngineStop();
-    std::string playRevEngAtAccelerating(unsigned short rpm);
-    std::string playRevEngAtDecelerating(unsigned short rpm);
+    std::string playRevEngAtAccelerating();
+    std::string playRevEngAtDecelerating();
     std::string playNeutralRevUp(int rpm);
     std::string playNeutralRevDown(int rpm);
 
